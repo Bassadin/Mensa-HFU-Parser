@@ -1,0 +1,23 @@
+{
+  "name": "mensa-hfu-parser",
+  "version": "1.0.0",
+  "description": "Mensa-HFU-Parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bassadin/Mensa-HFU-Parser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bassadin/Mensa-HFU-Parser/issues"
+  },
+  "homepage": "https://github.com/Bassadin/Mensa-HFU-Parser#readme",
+  "dependencies": {
+    "got": "^12.0.0",
+    "jsdom": "^19.0.0"
+  }
+}
