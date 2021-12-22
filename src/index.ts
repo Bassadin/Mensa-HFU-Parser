@@ -1,17 +1,33 @@
 import axios from "axios";
 import { JSDOM } from "jsdom";
 
+import express from "express";
+
+const app = express();
+const port = 8080; // default port to listen
+
 const mensaURL =
     "https://www.swfr.de/essen-trinken/speiseplaene/mensa-furtwangen/";
 
-console.log("START");
+// define a route handler for the default home page
+app.get("/", async (req, res) => {
+    res.send(await getSingleDayContent());
+});
 
-axios
-    .get(mensaURL)
-    .then((response: any) => {
-        const dom = new JSDOM(response.data);
-        console.log(dom?.window?.document?.getElementById("tab-tue")?.textContent);
-    })
-    .catch((err: Error) => {
-        console.log(err);
-    });
+// start the Express server
+app.listen(port, () => {
+    console.log(`server started at http://localhost:${port}`);
+});
+
+async function getSingleDayContent() {
+    return axios
+        .get(mensaURL)
+        .then((response: any) => {
+            const dom = new JSDOM(response.data);
+            return dom?.window?.document?.getElementById("tab-tue")
+                ?.textContent;
+        })
+        .catch((err: Error) => {
+            console.error(err);
+        });
+}
