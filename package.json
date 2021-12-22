@@ -4,7 +4,9 @@
     "description": "Mensa-HFU-Parser",
     "main": "dist/index.js",
     "scripts": {
-        "dev": "nodemon src/index.ts"
+        "dev": "nodemon src/index.ts",
+        "start": "nodemon dist/index.ts",
+        "build": "tsc -p ."
     },
     "repository": {
         "type": "git",
