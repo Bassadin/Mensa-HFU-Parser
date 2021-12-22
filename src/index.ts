@@ -1,6 +1,5 @@
 import axios from "axios";
 import { JSDOM } from "jsdom";
-
 import express from "express";
 
 const app = express();
@@ -9,12 +8,10 @@ const port = 8080; // default port to listen
 const mensaURL =
     "https://www.swfr.de/essen-trinken/speiseplaene/mensa-furtwangen/";
 
-// define a route handler for the default home page
 app.get("/", async (req, res) => {
     res.send(await getSingleDayContent());
 });
 
-// start the Express server
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
 });
