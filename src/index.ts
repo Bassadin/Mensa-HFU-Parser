@@ -1,6 +1,7 @@
 import axios from "axios";
 import { JSDOM } from "jsdom";
 import express from "express";
+import { dateToDateTabString } from "./DateConversion";
 
 const app = express();
 const port = 8080; // default port to listen
@@ -14,17 +15,27 @@ app.get("/", async (req, res) => {
 
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
+
+    initializeServer();
 });
 
 async function getSingleDayContent() {
-    return axios
-        .get(mensaURL)
-        .then((response: any) => {
-            const dom = new JSDOM(response.data);
-            return dom?.window?.document?.getElementById("tab-tue")
-                ?.textContent;
-        })
-        .catch((err: Error) => {
-            console.error(err);
-        });
+    const dateTabString = dateToDateTabString(new Date());
+
+    if (dateTabString) {
+        return axios
+            .get(mensaURL)
+            .then((response: any) => {
+                const dom = new JSDOM(response.data);
+                return (
+                    dom?.window?.document?.getElementById(dateTabString)
+                        ?.textContent ?? null
+                );
+            })
+            .catch((err: Error) => {
+                console.error(err);
+            });
+    }
 }
+
+function initializeServer() {}
