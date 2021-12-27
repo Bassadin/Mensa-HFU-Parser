@@ -13,6 +13,14 @@ app.get("/", async (req, res) => {
     res.send(await getSingleDayContent());
 });
 
+app.get("/for_weekday", async (req, res) => {
+    // TODO
+    if (!req.query.day) {
+        res.status(400).send('Missing parameter "day".');
+    }
+    console.log("Getting meals for weekday " + req.query.day);
+});
+
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
 
