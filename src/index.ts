@@ -13,6 +13,8 @@ app.get("/", async (req, res) => {
     res.send(await getSingleDayContent());
 });
 
+// Routes
+
 app.get("/for_weekday", async (req, res) => {
     // TODO
     if (!req.query.day) {
