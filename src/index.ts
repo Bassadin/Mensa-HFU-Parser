@@ -10,7 +10,14 @@ const mensaURL =
     "https://www.swfr.de/essen-trinken/speiseplaene/mensa-furtwangen/";
 
 app.get("/", async (req, res) => {
-    res.send(await getSingleDayContent());
+    const dayString = dateToDateTabString(new Date());
+    if (dayString) {
+        return res.send(await getSingleDayContent(dayString));
+    } else {
+        return res
+            .status(500)
+            .send("Something went wrong while getting the date.");
+    }
 });
 
 // Routes
@@ -18,9 +25,9 @@ app.get("/", async (req, res) => {
 app.get("/for_weekday", async (req, res) => {
     // TODO
     if (!req.query.day) {
-        res.status(400).send('Missing parameter "day".');
+        return res.status(400).send('Missing parameter "day".');
     }
-    console.log("Getting meals for weekday " + req.query.day);
+    return res.send(await getSingleDayContent("tab-" + <string>req.query.day));
 });
 
 app.listen(port, () => {
@@ -29,16 +36,15 @@ app.listen(port, () => {
     initializeServer();
 });
 
-async function getSingleDayContent() {
-    const dateTabString = dateToDateTabString(new Date());
-
-    if (dateTabString) {
+async function getSingleDayContent(dayString: string) {
+    console.log("Getting meals for weekday " + dayString);
+    if (dayString) {
         return axios
             .get(mensaURL)
             .then((response: any) => {
                 const dom = new JSDOM(response.data);
                 return (
-                    dom?.window?.document?.getElementById(dateTabString)
+                    dom?.window?.document?.getElementById(dayString)
                         ?.textContent ?? null
                 );
             })
