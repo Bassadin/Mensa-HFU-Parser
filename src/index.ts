@@ -44,6 +44,7 @@ async function getSingleDayContent(dayString: string) {
             .then((response: any) => {
                 const dom = new JSDOM(response.data);
                 return (
+                    // TODO: Split up results into multiple meals
                     dom?.window?.document?.getElementById(dayString)
                         ?.textContent ?? null
                 );
