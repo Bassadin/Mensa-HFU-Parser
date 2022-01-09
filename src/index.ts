@@ -43,11 +43,18 @@ async function getSingleDayContent(dayString: string) {
             .get(mensaURL)
             .then((response: any) => {
                 const dom = new JSDOM(response.data);
-                return (
-                    // TODO: Split up results into multiple meals
-                    dom?.window?.document?.getElementById(dayString)
-                        ?.textContent ?? null
-                );
+
+                const domMealData =
+                    dom?.window?.document?.getElementById(dayString) ?? null;
+
+                const mealHTMLRows = domMealData?.querySelectorAll("div.row");
+
+                mealHTMLRows?.forEach((eachHTMLElement) => {
+                    // console.log((eachHTMLElement as HTMLElement)?.innerHTML);
+                    console.log(eachHTMLElement.querySelector("h4")?.innerHTML);
+                });
+
+                return domMealData?.textContent;
             })
             .catch((err: Error) => {
                 console.error(err);
