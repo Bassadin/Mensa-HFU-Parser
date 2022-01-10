@@ -51,7 +51,12 @@ async function getSingleDayContent(dayString: string) {
 
                 mealHTMLRows?.forEach((eachHTMLElement) => {
                     // console.log((eachHTMLElement as HTMLElement)?.innerHTML);
-                    console.log(eachHTMLElement.querySelector("h4")?.innerHTML);
+                    const mealTitle =
+                        eachHTMLElement.querySelector("h4")?.innerHTML;
+                    console.log(mealTitle);
+                    const mealMenuInfo =
+                        eachHTMLElement.querySelector(".menu-info")?.innerHTML;
+                    console.log(mealMenuInfo);
                 });
 
                 return domMealData?.textContent;
