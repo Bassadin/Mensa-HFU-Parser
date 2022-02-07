@@ -1,6 +1,7 @@
 import { dateToDateTabString } from "./DateConversion";
 import { expect } from "chai";
 
+// Tests for date tab string conversion
 describe("dateToDateTabString()", () => {
     it("tab-mon", () => {
         const result = dateToDateTabString(new Date("December 20, 2021"));
